@@ -41,6 +41,9 @@
             </a>
         </header>
 
+        <button id="showEventsBtn" onclick="showEvents();">Show Sheet</button><br><br>
+        <button id="revokeBtn" onclick="revokeToken();">Revoke access token</button>
+
         <main>
             <h1>Get started with Bootstrap</h1>
             <p class="fs-5 col-md-8">Quickly and easily get started with Bootstrap's compiled, production-ready files
@@ -91,7 +94,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha256-9SEPo+fwJFpMUet/KACSwO+Z/dKMReF9q4zFhU/fT9M=" crossorigin="anonymous"></script>
-
+    <script src="main.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoadOkay()" onerror="gapiLoadFail(event)"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoadOkay()" onerror="gisLoadFail(event)"></script>
 
 </body>
 
