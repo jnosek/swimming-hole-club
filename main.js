@@ -34,7 +34,7 @@ var tokenClient;
             tokenClient = google.accounts.oauth2.initTokenClient({
                 client_id: '726017797407-5cjfo1chb9fduq5oa6ahdkn0ihh06g44.apps.googleusercontent.com',
                 scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/spreadsheets.readonly',
-                prompt: 'consent',
+                //prompt: 'consent',
                 callback: '',  // defined at request time in await/promise scope.
             });
             resolve();
@@ -64,7 +64,7 @@ async function getToken(err) {
                     console.log('gapi.client access token: ' + JSON.stringify(gapi.client.getToken()));
                     resolve(resp);
                 };
-                tokenClient.requestAccessToken();
+                tokenClient.requestAccessToken({ hint: 'jnosek@gmail.com', prompt: 'none' });
             } catch (err) {
                 console.log(err)
             }
@@ -76,12 +76,16 @@ async function getToken(err) {
 }
 
 async function showEvents() {
+
     await getToken();
 
-    let result = await gapi.client.sheets.spreadsheets.values.get({
+    const response = await gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: '1KGv7ri0uLMYs3zJZXmW_XyiWqosSGS8vdGRFgcZKNzA',
         range: 'A:F'
     });
+
+    let row = response.result.values[0];
+    console.log(`row: ${row}`)
 
     // Try to fetch a list of Calendar events. If a valid access token is needed,
     // prompt to obtain one and then retry the original request.
